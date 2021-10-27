@@ -235,6 +235,12 @@ function searchForArray(haystack, needle) {
 }
 
 
+function sleep(ms) {
+    return new Promise(r => setTimeout(r, ms));
+}
+
+
+
 // from https://www.joshwcomeau.com/snippets/javascript/random/
 // This random function includes the lower bound, but excludes the upper bound
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -243,25 +249,36 @@ const randomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 window.addEventListener("keydown", keyDown);
 textBox = document.querySelector(".text-box")
 
-function keyDown(e) {
-    let direction;
+async function keyDown(e) {
+    // let direction;
     if (e.key == "ArrowUp") {
-        direction = DIRECTION.UP;
+        state.nextKeyDirection = DIRECTION.UP;
     } else if (e.key == "ArrowRight") {
-        direction = DIRECTION.RIGHT;
+        state.nextKeyDirection = DIRECTION.RIGHT;
     } else if (e.key == "ArrowDown") {
-        direction = DIRECTION.DOWN;
+        state.nextKeyDirection = DIRECTION.DOWN;
     } else if (e.key == "ArrowLeft") {
-        direction = DIRECTION.LEFT;
+        state.nextKeyDirection = DIRECTION.LEFT;
     }
-    step(direction);
-    textBox.textContent = `Score: ${state.score}`;
+    // step(direction);
     
-    if (state.done) {
-        textBox.textContent = `Game finished! Final score: ${state.score}`;
-        window.removeEventListener("keydown", keyDown);
+}
+
+async function startGame() {
+    let i = 0
+    while (i < 1000) {
+        await sleep(100);
+        step(state.nextKeyDirection);
+        textBox.textContent = `Score: ${state.score}`;
+        if (state.done) {
+            textBox.textContent = `Game finished! Final score: ${state.score}`;
+            window.removeEventListener("keydown", keyDown);
+        }
+
+        i++;
     }
 }
+startGame();
 
 
 // step(DIRECTION.DOWN)
@@ -327,4 +344,4 @@ function keyDown(e) {
 // board.fill(0);
 
 // console.log("UP" in Direction.)
-console.log("Test2!");
+// console.log("Test2!");
