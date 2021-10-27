@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 500px;
+    background-color: yellow;
+}
+
+.grid-row {
+    display: flex;
+    flex-direction: row;
+    background-color: pink;
+    flex: 1;
+}
+
+.grid-unit-empty {
+    color: red;
+    background-color: blue;
+    margin: 1px;
+    flex: 1;
+}
+
+.grid-unit-snake {
+    color: red;
+    background-color: red;
+    margin: 1px;
+    flex: 1;
+}
+
+.grid-unit-food {
+    color: red;
+    background-color: yellowgreen;
+    margin: 1px;
+    flex: 1;
+}
