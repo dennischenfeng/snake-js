@@ -2,12 +2,40 @@
     box-sizing: border-box;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 500px;
+    padding: 40px;
+    background-color: coral;
+    position: absolute;
+    z-index: 2;
+}
+
+.button {
+    margin: 5px;
+}
+
+input[type=radio] {
+    display: inline;
+}
+
+
+
 .grid-container {
     display: flex;
     flex-direction: column;
     height: 500px;
     width: 500px;
     background-color: yellow;
+    position: absolute;
+    z-index: 1;
 }
 
 .grid-row {
@@ -37,3 +65,4 @@
     margin: 1px;
     flex: 1;
 }
+

@@ -10,11 +10,48 @@
 </head>
 
 <body>
-    <h1>Introduction</h1>
-    <div class="grid-container">
+    <div class="control-panel">
+        <p>Play the classic Snake game! Choose game settings and begin the game.</p>
+        
+        <p>Grid size</p> 
+        <form>
+            <input type="radio" id="small" name="grid_size" checked> 
+            <label for="small">Small</label>
+
+            <input type="radio" id="medium" name="grid_size">
+            <label for="medium">Medium</label>
+
+            <input type="radio" id="large" name="grid_size">
+            <label for="large">Large</label>
+        </form>
+        
+        <p>Speed</p>
+        <form>
+            <input type="radio" id="1" name="speed" checked> 
+            <label for="1">1</label>
+
+            <input type="radio" id="2" name="speed">
+            <label for="2">2</label>
+
+            <input type="radio" id="3" name="speed">
+            <label for="3">3</label>
+        </form>
+        
+        <p>Mode</p>
+        <form>
+            <input type="radio" id="normal" name="mode" checked> 
+            <label for="normal">Normal</label>
+
+            <input type="radio" id="countdown" name="mode">
+            <label for="countdown">Countdown</label>
+        </form>
+        
+        <button class="button">Start</button>    
     </div>
 
-    <div class="text-box">My text here!</div>
+    <div class="grid-container"></div>
+    
+
 
     <!-- <div class="grid-container">
         <div class="grid-unit">1</div> 
