@@ -15,7 +15,7 @@
     padding: 40px;
     background-color: coral;
     position: absolute;
-    z-index: 2;
+    z-index: 0;
 }
 
 .button {
@@ -66,3 +66,9 @@ input[type=radio] {
     flex: 1;
 }
 
+
+.text-box {
+    position: absolute;
+    z-index: 3;
+    color: white;
+}
