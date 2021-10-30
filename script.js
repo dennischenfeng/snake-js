@@ -164,6 +164,21 @@ Game.prototype.step = function(dir) {
     }
 }
 
+Game.prototype.play = async function() {
+    let i = 0
+    while (i < 1000) {
+        await sleep(100);
+        this.step(this.nextKeyDirection);
+        textBox.textContent = `Score: ${this.score}`;
+        if (this.done) {
+            textBox.textContent = `Game finished! Final score: ${this.score}`;
+            window.removeEventListener("keydown", keyDown);
+        }
+
+        i++;
+    }
+}
+
 
 // Utility functions
 
@@ -204,36 +219,55 @@ const randomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 
 
-async function startGame() {
-    const g = new Game([20, 20], 1, "normal")
+// async function startGame() {
+//     const g = new Game([20, 20], 1, "normal")
 
-    window.addEventListener("keydown", keyDown);
-    textBox = document.querySelector(".text-box")
+//     window.addEventListener("keydown", keyDown);
+//     textBox = document.querySelector(".text-box")
 
-    async function keyDown(e) {
-        if (e.key == "ArrowUp") {
-            g.nextKeyDirection = DIRECTION.UP;
-        } else if (e.key == "ArrowRight") {
-            g.nextKeyDirection = DIRECTION.RIGHT;
-        } else if (e.key == "ArrowDown") {
-            g.nextKeyDirection = DIRECTION.DOWN;
-        } else if (e.key == "ArrowLeft") {
-            g.nextKeyDirection = DIRECTION.LEFT;
-        }
-    }
+//     async function keyDown(e) {
+//         if (e.key == "ArrowUp") {
+//             g.nextKeyDirection = DIRECTION.UP;
+//         } else if (e.key == "ArrowRight") {
+//             g.nextKeyDirection = DIRECTION.RIGHT;
+//         } else if (e.key == "ArrowDown") {
+//             g.nextKeyDirection = DIRECTION.DOWN;
+//         } else if (e.key == "ArrowLeft") {
+//             g.nextKeyDirection = DIRECTION.LEFT;
+//         }
+//     }
 
-    let i = 0
-    while (i < 1000) {
-        await sleep(100);
-        g.step(g.nextKeyDirection);
-        textBox.textContent = `Score: ${g.score}`;
-        if (g.done) {
-            textBox.textContent = `Game finished! Final score: ${g.score}`;
-            window.removeEventListener("keydown", keyDown);
-        }
+//     let i = 0
+//     while (i < 1000) {
+//         await sleep(100);
+//         g.step(g.nextKeyDirection);
+//         textBox.textContent = `Score: ${g.score}`;
+//         if (g.done) {
+//             textBox.textContent = `Game finished! Final score: ${g.score}`;
+//             window.removeEventListener("keydown", keyDown);
+//         }
 
-        i++;
+//         i++;
+//     }
+// }
+
+// startGame();
+
+const g = new Game([20, 20], 1, "normal")
+
+window.addEventListener("keydown", keyDown);
+textBox = document.querySelector(".score-container")
+
+async function keyDown(e) {
+    if (e.key == "ArrowUp") {
+        g.nextKeyDirection = DIRECTION.UP;
+    } else if (e.key == "ArrowRight") {
+        g.nextKeyDirection = DIRECTION.RIGHT;
+    } else if (e.key == "ArrowDown") {
+        g.nextKeyDirection = DIRECTION.DOWN;
+    } else if (e.key == "ArrowLeft") {
+        g.nextKeyDirection = DIRECTION.LEFT;
     }
 }
 
-// startGame();
+// g.play()
