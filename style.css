@@ -10,7 +10,7 @@
     padding: 40px;
     background-color: coral;
     position: absolute;
-    z-index: 0;
+    z-index: 4;
 }
 
 .button {

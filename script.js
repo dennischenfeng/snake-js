@@ -5,11 +5,26 @@ const DIRECTION = Object.freeze({
     LEFT: 4,
 });
 
+const gridSizes = {
+    small: [10, 10],
+    medium: [20, 20],
+    large: [30, 30],
+}
+
+// maps speed to sleep_time (milliseconds)
+const sleepTimes = {
+    1: 300,
+    2: 200,
+    3: 100,
+}
+
 
 function Game(gridSize, speed, mode) {
     this.gridSize = gridSize;
     this.speed = speed;
     this.mode = mode;
+
+    this.sleep_time = sleepTimes[this.speed]
     
     this.grid = [];
     this.snakeNodes = [];
@@ -38,11 +53,14 @@ function Game(gridSize, speed, mode) {
         }
     }
 
+    this.scoreLeft = document.querySelector(".score-left")
+    this.scoreRight = document.querySelector(".score-right")
+
     // Populate attributes with initial values
     this.snakeNodes = [[4, 4], [4, 5], [4, 6]];
     this.snakeDirection = DIRECTION.RIGHT;
     this.nextKeyDirection = DIRECTION.RIGHT;
-    this.foodNode = [10, 10];
+    this.foodNode = [9, 9];
 
     // Modify DOM nodes to reflect attributes
     for (let i = 0; i < this.snakeNodes.length; i++) {
@@ -54,6 +72,9 @@ function Game(gridSize, speed, mode) {
     const [foodRow, foodCol] = this.foodNode;
     this.grid[foodRow][foodCol].classList.remove("grid-unit-empty");
     this.grid[foodRow][foodCol].classList.toggle("grid-unit-food");
+
+    // Enable keyboard arrow keys
+    window.addEventListener("keydown", this.keyDown.bind(this));
 }
 
 Game.prototype.computeNextNodeLoc = function(moveDirection) {
@@ -167,16 +188,33 @@ Game.prototype.step = function(dir) {
 Game.prototype.play = async function() {
     let i = 0
     while (i < 1000) {
-        await sleep(100);
+        await sleep(this.sleep_time);
+        console.log(`g.play's this: ${this}`)
+        console.log(`g.play's nextKeyDirection: ${this.nextKeyDirection}`)
         this.step(this.nextKeyDirection);
-        textBox.textContent = `Score: ${this.score}`;
+        this.scoreLeft.textContent = `Score: ${this.score}`;
         if (this.done) {
-            textBox.textContent = `Game finished! Final score: ${this.score}`;
-            window.removeEventListener("keydown", keyDown);
+            this.scoreLeft.textContent = `Game finished! Final score: ${this.score}`;
+            window.removeEventListener("keydown", this.keyDown);
+            break;
         }
 
         i++;
     }
+}
+
+Game.prototype.keyDown = function(e) {
+    if (e.key == "ArrowUp") {
+        this.nextKeyDirection = DIRECTION.UP;
+    } else if (e.key == "ArrowRight") {
+        this.nextKeyDirection = DIRECTION.RIGHT;
+    } else if (e.key == "ArrowDown") {
+        this.nextKeyDirection = DIRECTION.DOWN;
+    } else if (e.key == "ArrowLeft") {
+        this.nextKeyDirection = DIRECTION.LEFT;
+    
+    console.log(`g.keyDown's this: ${this}`)}
+    console.log(`g.keyDown's nextKeyDirection: ${this.nextKeyDirection}`)
 }
 
 
@@ -218,56 +256,52 @@ function oppositeDirection(direction) {
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 
+function Controller() {
+    // this.g;
 
-// async function startGame() {
-//     const g = new Game([20, 20], 1, "normal")
+    this.controlPanel = document.querySelector(".control-panel")
+    this.gridContainer = document.querySelector(".grid-container")
+}
 
-//     window.addEventListener("keydown", keyDown);
-//     textBox = document.querySelector(".text-box")
+Controller.prototype.start = function(gridSize, speed, mode) {
+    const g = new Game(gridSize, speed, mode)
+    g.play()
+    console.log(g.nextKeyDirection)
+}
 
-//     async function keyDown(e) {
-//         if (e.key == "ArrowUp") {
-//             g.nextKeyDirection = DIRECTION.UP;
-//         } else if (e.key == "ArrowRight") {
-//             g.nextKeyDirection = DIRECTION.RIGHT;
-//         } else if (e.key == "ArrowDown") {
-//             g.nextKeyDirection = DIRECTION.DOWN;
-//         } else if (e.key == "ArrowLeft") {
-//             g.nextKeyDirection = DIRECTION.LEFT;
-//         }
-//     }
+// Controller.prototype.
 
-//     let i = 0
-//     while (i < 1000) {
-//         await sleep(100);
-//         g.step(g.nextKeyDirection);
-//         textBox.textContent = `Score: ${g.score}`;
-//         if (g.done) {
-//             textBox.textContent = `Game finished! Final score: ${g.score}`;
-//             window.removeEventListener("keydown", keyDown);
-//         }
 
-//         i++;
+
+// const g = new Game([20, 20], 1, "normal")
+
+// window.addEventListener("keydown", keyDown);
+// textBox = document.querySelector(".score-container")
+
+// async function keyDown(e) {
+//     if (e.key == "ArrowUp") {
+//         g.nextKeyDirection = DIRECTION.UP;
+//     } else if (e.key == "ArrowRight") {
+//         g.nextKeyDirection = DIRECTION.RIGHT;
+//     } else if (e.key == "ArrowDown") {
+//         g.nextKeyDirection = DIRECTION.DOWN;
+//     } else if (e.key == "ArrowLeft") {
+//         g.nextKeyDirection = DIRECTION.LEFT;
 //     }
 // }
 
-// startGame();
 
-const g = new Game([20, 20], 1, "normal")
 
-window.addEventListener("keydown", keyDown);
-textBox = document.querySelector(".score-container")
 
-async function keyDown(e) {
-    if (e.key == "ArrowUp") {
-        g.nextKeyDirection = DIRECTION.UP;
-    } else if (e.key == "ArrowRight") {
-        g.nextKeyDirection = DIRECTION.RIGHT;
-    } else if (e.key == "ArrowDown") {
-        g.nextKeyDirection = DIRECTION.DOWN;
-    } else if (e.key == "ArrowLeft") {
-        g.nextKeyDirection = DIRECTION.LEFT;
-    }
-}
+const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id
+const gridSize = gridSizes[gridSizeKey]
+
+const speed = parseInt(document.querySelector("input[name='speed']:checked").id)
+const mode = document.querySelector("input[name='mode']:checked").id
+
+document.querySelector(".control-panel").style.zIndex = 0
 
 // g.play()
+// createGameAndPlay(gridSize, speed, mode)
+c = new Controller()
+c.start(gridSize, speed, mode)
