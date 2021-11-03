@@ -18,6 +18,11 @@ const sleepTimes = {
     3: 100,
 }
 
+const controlPanel = document.querySelector(".control-panel")
+const gridPanel = document.querySelector(".grid-panel")
+const startButton = document.getElementById("startButton")
+
+
 
 function Game(gridSize, speed, mode) {
     this.gridSize = gridSize;
@@ -35,12 +40,12 @@ function Game(gridSize, speed, mode) {
     this.done = false;
 
     // Add DOM nodes, populate grid
-    const gridContainer = document.querySelector(".grid-panel");
+    // const gridPanel = document.querySelector(".grid-panel");
     for (let row = 0; row < this.gridSize[0]; row++) {
         const d = document.createElement("div");
         d.classList.add("grid-row");
         this.grid.push([]);
-        gridContainer.appendChild(d);
+        gridPanel.appendChild(d);
     }
 
     const gridRows = document.querySelectorAll(".grid-row");
@@ -201,7 +206,11 @@ Game.prototype.play = async function() {
     }
 }
 
-Game.prototype.keyDown = function(e) {
+Game.prototype.reset_dom = function () {
+    gridPanel.textContent = "";
+}
+
+Game.prototype.keyDown = async function(e) {
     if (e.key == "ArrowUp") {
         this.nextKeyDirection = DIRECTION.UP;
     } else if (e.key == "ArrowRight") {
@@ -252,32 +261,15 @@ function oppositeDirection(direction) {
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 
-function Controller() {
-    // this.g;
 
-    this.controlPanel = document.querySelector(".control-panel")
-    this.gridPanel = document.querySelector(".grid-panel")
-    this.startButton = document.getElementById("startButton")
-}
 
-Controller.prototype.startGame = function(gridSize, speed, mode) {
-    const g = new Game(gridSize, speed, mode)
-    g.play()
-}
-
-Controller.prototype.run = function() {
-    this.bringToFront("control-panel")
-
-    // TODO: continue here. how to get return value from play?
-}
-
-Controller.prototype.bringToFront = function(panelName) {
+function bringToFront (panelName) {
     if (panelName == "control-panel") {
-        this.controlPanel.style.zIndex = 1;
-        this.gridPanel.style.zIndex = 0;
+        controlPanel.style.zIndex = 1;
+        gridPanel.style.zIndex = 0;
     } else if (panelName == "grid-panel") {
-        this.controlPanel.style.zIndex = 0;
-        this.gridPanel.style.zIndex = 1;
+        controlPanel.style.zIndex = 0;
+        gridPanel.style.zIndex = 1;
     } else {
         throw "panelName is not valid!"
     }
@@ -285,35 +277,18 @@ Controller.prototype.bringToFront = function(panelName) {
 
 
 
-// const g = new Game([20, 20], 1, "normal")
+async function onStartButtonClick(e) {
+    const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
+    const gridSize = gridSizes[gridSizeKey];
+    const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
+    const mode = document.querySelector("input[name='mode']:checked").id;
 
-// window.addEventListener("keydown", keyDown);
-// textBox = document.querySelector(".score-container")
-
-// async function keyDown(e) {
-//     if (e.key == "ArrowUp") {
-//         g.nextKeyDirection = DIRECTION.UP;
-//     } else if (e.key == "ArrowRight") {
-//         g.nextKeyDirection = DIRECTION.RIGHT;
-//     } else if (e.key == "ArrowDown") {
-//         g.nextKeyDirection = DIRECTION.DOWN;
-//     } else if (e.key == "ArrowLeft") {
-//         g.nextKeyDirection = DIRECTION.LEFT;
-//     }
-// }
+    const g = new Game(gridSize, speed, mode);
+    bringToFront("grid-panel")
+    await g.play();
+    g.reset_dom();
+    bringToFront("control-panel")
+}
 
 
-
-
-const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
-const gridSize = gridSizes[gridSizeKey];
-
-const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
-const mode = document.querySelector("input[name='mode']:checked").id;
-
-document.querySelector(".control-panel").style.zIndex = 0;
-
-// g.play()
-// createGameAndPlay(gridSize, speed, mode)
-c = new Controller();
-c.startGame(gridSize, speed, mode);
+startButton.addEventListener("click", onStartButtonClick)
