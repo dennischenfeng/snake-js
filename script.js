@@ -35,7 +35,7 @@ function Game(gridSize, speed, mode) {
     this.done = false;
 
     // Add DOM nodes, populate grid
-    const gridContainer = document.querySelector(".grid-container");
+    const gridContainer = document.querySelector(".grid-panel");
     for (let row = 0; row < this.gridSize[0]; row++) {
         const d = document.createElement("div");
         d.classList.add("grid-row");
@@ -189,8 +189,6 @@ Game.prototype.play = async function() {
     let i = 0
     while (i < 1000) {
         await sleep(this.sleep_time);
-        console.log(`g.play's this: ${this}`)
-        console.log(`g.play's nextKeyDirection: ${this.nextKeyDirection}`)
         this.step(this.nextKeyDirection);
         this.scoreLeft.textContent = `Score: ${this.score}`;
         if (this.done) {
@@ -212,9 +210,7 @@ Game.prototype.keyDown = function(e) {
         this.nextKeyDirection = DIRECTION.DOWN;
     } else if (e.key == "ArrowLeft") {
         this.nextKeyDirection = DIRECTION.LEFT;
-    
-    console.log(`g.keyDown's this: ${this}`)}
-    console.log(`g.keyDown's nextKeyDirection: ${this.nextKeyDirection}`)
+    }
 }
 
 
@@ -260,16 +256,32 @@ function Controller() {
     // this.g;
 
     this.controlPanel = document.querySelector(".control-panel")
-    this.gridContainer = document.querySelector(".grid-container")
+    this.gridPanel = document.querySelector(".grid-panel")
+    this.startButton = document.getElementById("startButton")
 }
 
-Controller.prototype.start = function(gridSize, speed, mode) {
+Controller.prototype.startGame = function(gridSize, speed, mode) {
     const g = new Game(gridSize, speed, mode)
     g.play()
-    console.log(g.nextKeyDirection)
 }
 
-// Controller.prototype.
+Controller.prototype.run = function() {
+    this.bringToFront("control-panel")
+
+    // TODO: continue here. how to get return value from play?
+}
+
+Controller.prototype.bringToFront = function(panelName) {
+    if (panelName == "control-panel") {
+        this.controlPanel.style.zIndex = 1;
+        this.gridPanel.style.zIndex = 0;
+    } else if (panelName == "grid-panel") {
+        this.controlPanel.style.zIndex = 0;
+        this.gridPanel.style.zIndex = 1;
+    } else {
+        throw "panelName is not valid!"
+    }
+}
 
 
 
@@ -293,15 +305,15 @@ Controller.prototype.start = function(gridSize, speed, mode) {
 
 
 
-const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id
-const gridSize = gridSizes[gridSizeKey]
+const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
+const gridSize = gridSizes[gridSizeKey];
 
-const speed = parseInt(document.querySelector("input[name='speed']:checked").id)
-const mode = document.querySelector("input[name='mode']:checked").id
+const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
+const mode = document.querySelector("input[name='mode']:checked").id;
 
-document.querySelector(".control-panel").style.zIndex = 0
+document.querySelector(".control-panel").style.zIndex = 0;
 
 // g.play()
 // createGameAndPlay(gridSize, speed, mode)
-c = new Controller()
-c.start(gridSize, speed, mode)
+c = new Controller();
+c.startGame(gridSize, speed, mode);
