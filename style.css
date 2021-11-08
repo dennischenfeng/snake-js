@@ -87,11 +87,13 @@ input[type=radio] {
 
 .score-left {
     display: flex;
+    flex-direction: column;
     flex: 1;
 }
 
 .score-right {
     display: flex;
+    flex-direction: column;
     flex: 1;
 }
 

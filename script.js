@@ -21,6 +21,8 @@ const sleepTimes = {
 const controlPanel = document.querySelector(".control-panel")
 const gridPanel = document.querySelector(".grid-panel")
 const endPanel = document.querySelector(".end-panel")
+const highScoreNormalSpan = document.getElementById("high-score-normal")
+const highScoreCountdownSpan = document.getElementById("high-score-countdown")
 const startButton = document.getElementById("startButton")
 const backToMenuButton = document.getElementById("backToMenuButton")
 
@@ -39,7 +41,18 @@ async function onStartButtonClick(e) {
 
     game = new Game(gridSize, speed, mode);
     bringToFront("grid-panel");
-    await game.play();
+    const score = await game.play();
+    
+    if (mode === "normal") {
+        highScoreNormal = Math.max(highScoreNormal, score);
+        highScoreNormalSpan.textContent = highScoreNormal
+    } else if (mode === "countdown") {
+        highScoreCountdown = Math.max(highScoreCountdown, score);
+        highScoreCountdownSpan.textContent = highScoreCountdown
+    } else {
+        throw "Invalid mode! An error occurred.";
+    }
+
     bringToFront("end-panel");
 }
 
@@ -239,19 +252,20 @@ Game.prototype.play = async function() {
     while (i < 1000) {
         await sleep(this.sleep_time);
         this.step(this.nextKeyDirection);
-        this.scoreLeft.textContent = `Score: ${this.score}`;
+        this.scoreRight.textContent = `Score: ${this.score}`;
         if (this.done) {
-            this.scoreLeft.textContent = `Game finished! Final score: ${this.score}`;
             window.removeEventListener("keydown", this.keyDown);
             break;
         }
 
         i++;
     }
+    return this.score;
 }
 
 Game.prototype.reset_dom = function () {
     gridPanel.textContent = "";
+    this.scoreRight.textContent = "";
 }
 
 Game.prototype.keyDown = async function(e) {
