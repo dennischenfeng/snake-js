@@ -20,9 +20,54 @@ const sleepTimes = {
 
 const controlPanel = document.querySelector(".control-panel")
 const gridPanel = document.querySelector(".grid-panel")
+const endPanel = document.querySelector(".end-panel")
 const startButton = document.getElementById("startButton")
+const backToMenuButton = document.getElementById("backToMenuButton")
+
+let game = undefined;
+let highScoreNormal = 0;
+let highScoreCountdown = 0;
+
+startButton.addEventListener("click", onStartButtonClick)
+backToMenuButton.addEventListener("click", onBackToMenuButtonClick)
+
+async function onStartButtonClick(e) {
+    const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
+    const gridSize = gridSizes[gridSizeKey];
+    const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
+    const mode = document.querySelector("input[name='mode']:checked").id;
+
+    game = new Game(gridSize, speed, mode);
+    bringToFront("grid-panel");
+    await game.play();
+    bringToFront("end-panel");
+}
+
+async function onBackToMenuButtonClick(e) {
+    bringToFront("control-panel");
+    game.reset_dom();
+}
+
+function bringToFront (panelName) {
+    if (panelName == "control-panel") {
+        controlPanel.style.zIndex = 2;
+        gridPanel.style.zIndex = 0;
+        endPanel.style.zIndex = 0;
+    } else if (panelName == "grid-panel") {
+        controlPanel.style.zIndex = 0;
+        gridPanel.style.zIndex = 2;
+        endPanel.style.zIndex = 0;
+    } else if (panelName == "end-panel") {
+        controlPanel.style.zIndex = 0;
+        gridPanel.style.zIndex = 1;
+        endPanel.style.zIndex = 2;
+    } else {
+        throw "panelName is not valid!"
+    }
+}
 
 
+// Game
 
 function Game(gridSize, speed, mode) {
     this.gridSize = gridSize;
@@ -108,7 +153,6 @@ Game.prototype.computeNextNodeLoc = function(moveDirection) {
     } else {
         throw "`moveDirection` is not valid!";
     }
-        
 }
 
 Game.prototype.computeMoveDirection = function(direction) {
@@ -259,36 +303,3 @@ function oppositeDirection(direction) {
 // from https://www.joshwcomeau.com/snippets/javascript/random/
 // This random function includes the lower bound, but excludes the upper bound
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-
-
-
-
-function bringToFront (panelName) {
-    if (panelName == "control-panel") {
-        controlPanel.style.zIndex = 1;
-        gridPanel.style.zIndex = 0;
-    } else if (panelName == "grid-panel") {
-        controlPanel.style.zIndex = 0;
-        gridPanel.style.zIndex = 1;
-    } else {
-        throw "panelName is not valid!"
-    }
-}
-
-
-
-async function onStartButtonClick(e) {
-    const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
-    const gridSize = gridSizes[gridSizeKey];
-    const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
-    const mode = document.querySelector("input[name='mode']:checked").id;
-
-    const g = new Game(gridSize, speed, mode);
-    bringToFront("grid-panel")
-    await g.play();
-    g.reset_dom();
-    bringToFront("control-panel")
-}
-
-
-startButton.addEventListener("click", onStartButtonClick)
