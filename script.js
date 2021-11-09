@@ -23,6 +23,8 @@ const gridPanel = document.querySelector(".grid-panel")
 const endPanel = document.querySelector(".end-panel")
 const highScoreNormalSpan = document.getElementById("high-score-normal")
 const highScoreCountdownSpan = document.getElementById("high-score-countdown")
+const scoreDiv = document.getElementById("score-div")
+const countdownDiv = document.getElementById("countdown-div")
 const startButton = document.getElementById("startButton")
 const backToMenuButton = document.getElementById("backToMenuButton")
 
@@ -37,20 +39,18 @@ async function onStartButtonClick(e) {
     const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
     const gridSize = gridSizes[gridSizeKey];
     const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
-    const mode = document.querySelector("input[name='mode']:checked").id;
+    const countdown = (document.querySelector("input[name='mode']:checked").id === "countdown" ? true : false);
 
-    game = new Game(gridSize, speed, mode);
+    game = new Game(gridSize, speed, countdown);
     bringToFront("grid-panel");
     const score = await game.play();
     
-    if (mode === "normal") {
+    if (!countdown) {
         highScoreNormal = Math.max(highScoreNormal, score);
         highScoreNormalSpan.textContent = highScoreNormal
-    } else if (mode === "countdown") {
-        highScoreCountdown = Math.max(highScoreCountdown, score);
-        highScoreCountdownSpan.textContent = highScoreCountdown
     } else {
-        throw "Invalid mode! An error occurred.";
+        highScoreCountdown = Math.max(highScoreCountdown, score);
+        highScoreCountdownSpan.textContent = highScoreCountdown;
     }
 
     bringToFront("end-panel");
@@ -82,10 +82,12 @@ function bringToFront (panelName) {
 
 // Game
 
-function Game(gridSize, speed, mode) {
+function Game(gridSize, speed, countdown = false, countdownDuration = 60e3) {
     this.gridSize = gridSize;
     this.speed = speed;
-    this.mode = mode;
+    // this.mode = mode;
+    this.countdown = countdown;
+    this.countdownDuration = countdownDuration;
 
     this.sleep_time = sleepTimes[this.speed]
     
@@ -116,8 +118,7 @@ function Game(gridSize, speed, mode) {
         }
     }
 
-    this.scoreLeft = document.querySelector(".score-left")
-    this.scoreRight = document.querySelector(".score-right")
+    
 
     // Populate attributes with initial values
     this.snakeNodes = [[4, 4], [4, 5], [4, 6]];
@@ -249,10 +250,15 @@ Game.prototype.step = function(dir) {
 
 Game.prototype.play = async function() {
     let i = 0
+
+    if (this.countdown) {
+        this.startCountdown()
+    }
+
     while (i < 1000) {
         await sleep(this.sleep_time);
         this.step(this.nextKeyDirection);
-        this.scoreRight.textContent = `Score: ${this.score}`;
+        scoreDiv.textContent = `Score: ${this.score}`;
         if (this.done) {
             window.removeEventListener("keydown", this.keyDown);
             break;
@@ -265,7 +271,8 @@ Game.prototype.play = async function() {
 
 Game.prototype.reset_dom = function () {
     gridPanel.textContent = "";
-    this.scoreRight.textContent = "";
+    scoreDiv.textContent = "";
+    countdownDiv.textContent = "";
 }
 
 Game.prototype.keyDown = async function(e) {
@@ -278,6 +285,27 @@ Game.prototype.keyDown = async function(e) {
     } else if (e.key == "ArrowLeft") {
         this.nextKeyDirection = DIRECTION.LEFT;
     }
+}
+
+Game.prototype.startCountdown = function() {
+    startTime = Date.now()
+    s = setInterval(() => {
+        if (!this.done) {
+            timeLeft = this.countdownDuration - (Date.now() - startTime)
+            timeLeftSeconds = Math.max(Math.ceil(timeLeft / 1000), 0)
+
+            timeLeftMinutesPart = Math.floor(timeLeftSeconds / 60)
+            timeLeftSecondsPart = Math.floor(timeLeftSeconds % 60)
+
+            countdownDiv.textContent = `Countdown: ${timeLeftMinutesPart}:${timeLeftSecondsPart}`
+
+            if (timeLeft < 0) {
+                this.done = true;
+            }
+        } else {
+            clearInterval(s);
+        }
+    }, 100)
 }
 
 
