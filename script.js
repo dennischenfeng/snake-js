@@ -21,37 +21,49 @@ const sleepTimes = {
 const controlPanel = document.querySelector(".control-panel")
 const gridPanel = document.querySelector(".grid-panel")
 const endPanel = document.querySelector(".end-panel")
-const highScoreNormalSpan = document.getElementById("high-score-normal")
-const highScoreCountdownSpan = document.getElementById("high-score-countdown")
+const highScoreSpan = document.getElementById("high-score")
+// const highScoreNormalSpan = document.getElementById("high-score-normal")
+// const highScoreCountdownSpan = document.getElementById("high-score-countdown")
 const scoreDiv = document.getElementById("score-div")
 const countdownDiv = document.getElementById("countdown-div")
 const startButton = document.getElementById("startButton")
 const backToMenuButton = document.getElementById("backToMenuButton")
+const radioButtons = document.querySelectorAll('input[type=radio]')
 
 let game = undefined;
-let highScoreNormal = 0;
-let highScoreCountdown = 0;
+let highScores = {};
+// populate initial values for highScores
+["small", "medium", "large"].forEach((gridSizeKey) => {
+    [1, 2, 3].forEach((speed) => {
+        ["normal", "countdown"].forEach((mode) => {
+            key = `${gridSizeKey},${speed},${mode}`;
+            highScores[key] = 0;
+        });
+    });
+}); 
+
 
 startButton.addEventListener("click", onStartButtonClick)
 backToMenuButton.addEventListener("click", onBackToMenuButtonClick)
+radioButtons.forEach((b) => {
+    b.addEventListener("click", onRadioButtonClick);
+})
 
 async function onStartButtonClick(e) {
     const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
     const gridSize = gridSizes[gridSizeKey];
     const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
-    const countdown = (document.querySelector("input[name='mode']:checked").id === "countdown" ? true : false);
+    const mode = document.querySelector("input[name='mode']:checked").id
+    const countdown = (mode === "countdown" ? true : false);
 
     game = new Game(gridSize, speed, countdown);
     bringToFront("grid-panel");
     const score = await game.play();
     
-    if (!countdown) {
-        highScoreNormal = Math.max(highScoreNormal, score);
-        highScoreNormalSpan.textContent = highScoreNormal
-    } else {
-        highScoreCountdown = Math.max(highScoreCountdown, score);
-        highScoreCountdownSpan.textContent = highScoreCountdown;
-    }
+    key = `${gridSizeKey},${speed},${mode}`;
+    highScores[key] = Math.max(score, highScores[key]);
+
+    highScoreSpan.textContent = highScores[key];
 
     bringToFront("end-panel");
 }
@@ -59,6 +71,16 @@ async function onStartButtonClick(e) {
 async function onBackToMenuButtonClick(e) {
     bringToFront("control-panel");
     game.reset_dom();
+}
+
+async function onRadioButtonClick(e) {
+    const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
+    const gridSize = gridSizes[gridSizeKey];
+    const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
+    const mode = document.querySelector("input[name='mode']:checked").id
+
+    const highScore = highScores[`${gridSizeKey},${speed},${mode}`];
+    highScoreSpan.textContent = highScore;
 }
 
 function bringToFront (panelName) {
