@@ -85,8 +85,8 @@
   display: flex;
   flex-direction: row;
   height: 50px;
-  width: 500px;
-  top: 500px;
+  width: 800px;
+  top: 800px;
   position: absolute;
   z-index: 3;
   color: black;
@@ -139,47 +139,7 @@
 
 
 
-/* and another open source: https://codepen.io/simonbusborg/pen/cyxad */
-.button {
-  display: flex;
-  overflow: hidden;
-  margin: 10px;
-  padding: 12px 12px;
-  cursor: pointer;
-  user-select: none;
-  transition: all 150ms linear;
-  text-align: center;
-  white-space: nowrap;
-  text-decoration: none !important;
-  text-transform: none;
-  text-transform: capitalize;
-  color: black;
-  border: 0 none;
-  border-radius: var(--borderRadius);
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.3;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  justify-content: center;
-  align-items: center;
-  flex: 0 0 160px;
-  box-shadow: 2px 5px 10px #416dea;
-}
 
-.button:hover {
-  transition: all 150ms linear;
-  opacity: 0.85;
-}
-.button:active {
-  transition: all 150ms linear;
-  opacity: 0.75;
-}
-.button:focus {
-  outline: 1px dotted #959595;
-  outline-offset: -4px;
-}
 
 
 
@@ -214,11 +174,34 @@
 }
 
 .radio input[type="radio"]:checked + .radio-label:before {
-  background-color: dodgerblue;
+  background-color: mediumseagreen;
   box-shadow: inset 0 0 0 4px whitesmoke;
 }
 
-.radio input[type="radio"]:focus + .radio-label:before {
-  outline: none;
-  border-color: dodgerblue;
+
+/* and another open source: https://codepen.io/simonbusborg/pen/cyxad */
+.button {
+  /* display: flex; */
+  margin: 3em;
+  padding: 1em 2em;
+  cursor: pointer;
+  transition: all 150ms ease;
+  text-align: center;
+  border: none;
+  border-radius: 1em;
+  color: whitesmoke;
+  background-color: mediumseagreen;
+  /* justify-content: center;
+  align-items: center; */
+  /* flex: 0 0 160px; */
+  /* box-shadow: 2px 5px 10px #416dea; */
+}
+
+.button:hover {
+  transition: all 150ms ease;
+  opacity: 0.85;
+}
+.button:active {
+  transition: all 150ms ease;
+  opacity: 0.75;
 }
