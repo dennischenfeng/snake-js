@@ -1,204 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Snake</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- <link href="star-admin2-free-admin-template/template/css/vertical-layout-light/style.css" rel="stylesheet"> -->
-    <!-- <link href="style.css" rel="stylesheet"> -->
-    <!-- <script src="script.js" defer></script> -->
+  <title>Snake</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- <link href="star-admin2-free-admin-template/template/css/vertical-layout-light/style.css" rel="stylesheet"> -->
+  <!-- <link href="style.css" rel="stylesheet"> -->
+  <!-- <script src="script.js" defer></script> -->
 
-    
+  
 
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/feather/feather.css">
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/typicons/typicons.css">
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/simple-line-icons/css/simple-line-icons.css">
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/js/select.dataTables.min.css">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="star-admin2-free-admin-template/template/css/vertical-layout-light/style.css">
-    <!-- endinject -->
-    <link rel="shortcut icon" href="star-admin2-free-admin-template/template/images/favicon.png" />
+  <!-- <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/feather/feather.css">
+  <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/typicons/typicons.css">
+  <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/simple-line-icons/css/simple-line-icons.css">
+  <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/css/vendor.bundle.base.css">
+
+  <link rel="stylesheet" href="star-admin2-free-admin-template/template/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="star-admin2-free-admin-template/template/js/select.dataTables.min.css">
+
+  <link rel="stylesheet" href="star-admin2-free-admin-template/template/css/vertical-layout-light/style.css">
+
+  <link rel="shortcut icon" href="star-admin2-free-admin-template/template/images/favicon.png" /> -->
 
 
-    <link href="style.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
 
 </head>
 
 <body>
-    <div class="control-panel">
-        <p>Settings</p>
-        
-        <div class="settings-form-container">
-            <div class="settings-form">
-                <p>Grid size</p>
-                <div class="form-group">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="gridSize" id="small">
-                            Small
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="gridSize" id="medium" checked>
-                            Medium
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="gridSize" id="large">
-                            Large
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="settings-form">
-                <p>Speed</p>
-                <div class="form-group">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="speed" id="1">
-                            Slow
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="speed" id="2" checked>
-                            Moderate
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="speed" id="3">
-                            Fast
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="settings-form">
-                <p>Mode</p>
-                <div class="form-group">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="mode" id="normal" checked>
-                            Normal
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="mode" id="countdown">
-                            Countdown
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- <p>Grid size</p> 
-        <form>
-            <input type="radio" id="small" name="gridSize"> 
-            <label for="small">Small</label>
-
-            <input type="radio" id="medium" name="gridSize" checked>
-            <label for="medium">Medium</label>
-
-            <input type="radio" id="large" name="gridSize">
-            <label for="large">Large</label>
-        </form> -->
-        
-        <!-- <p>Speed</p>
-        <form>
-            <input type="radio" id="1" name="speed"> 
-            <label for="1">1</label>
-
-            <input type="radio" id="2" name="speed" checked>
-            <label for="2">2</label>
-
-            <input type="radio" id="3" name="speed">
-            <label for="3">3</label>
-        </form> -->
-        
-        <!-- <p>Mode</p>
-        <form>
-            <input type="radio" id="normal" name="mode" checked> 
-            <label for="normal">Normal</label>
-
-            <input type="radio" id="countdown" name="mode">
-            <label for="countdown">Countdown</label>
-        </form> -->
-        
-        <button id="startButton" class="btn btn-primary">Start</button>    
-    </div>
-
-    <div class="grid-panel"></div>
-
-    <div class="end-panel">
-        <p>Game finished!</p>
-        <button id="backToMenuButton" class="btn btn-primary">Back to Menu</button>
-    </div>
-
-    <div class="score-container">
-        <div class="score-left">
-            <div>
-                High score (w/ chosen game settings): <span id="high-score">0</span>
-            </div> 
-            <!-- <div>
-                High score (countdown): <span id="high-score-countdown">0</span>
-            </div> -->
-        </div>
-        <div class="score-right">
-            <div id="score-div"></div>
-            <div id="countdown-div"></div>
-        </div>
-        
-    </div>
-    
+  <div class="control-panel">
+    <p>Settings</p>
     
 
-
-    <!-- <div class="grid-container">
-        <div class="grid-unit">1</div> 
-        <div class="grid-unit">2</div> 
-    </div> -->
+    <p>Test</p> 
+    <div class="container">
+      <div class="radio">
+        <input id="radio-1" name="radio" type="radio" checked>
+        <label for="radio-1" class="radio-label">Checked</label>
+      </div>
     
+      <div class="radio">
+        <input id="radio-2" name="radio" type="radio">
+        <label  for="radio-2" class="radio-label">Unchecked</label>
+      </div>
+    
+      <div class="radio">
+        <input id="radio-3" name="radio" type="radio" disabled>
+        <label for="radio-3" class="radio-label">Disabled</label>
+      </div>
+    </div>
+
+
+    <p>Grid size</p> 
+    <form>
+      <input type="radio" id="small" name="gridSize"> 
+      <label for="small">Small</label>
+
+      <input type="radio" id="medium" name="gridSize" checked>
+      <label for="medium">Medium</label>
+
+      <input type="radio" id="large" name="gridSize">
+      <label for="large">Large</label>
+    </form>
+    
+    <p>Speed</p>
+    <form>
+      <input type="radio" id="1" name="speed"> 
+      <label for="1">1</label>
+
+      <input type="radio" id="2" name="speed" checked>
+      <label for="2">2</label>
+
+      <input type="radio" id="3" name="speed">
+      <label for="3">3</label>
+    </form>
+    
+    <p>Mode</p>
+    <form>
+      <input type="radio" id="normal" name="mode" checked> 
+      <label for="normal">Normal</label>
+
+      <input type="radio" id="countdown" name="mode">
+      <label for="countdown">Countdown</label>
+    </form>
+    
+    <button id="startButton" class="button btn btn-primary">Start</button>    
+  </div>
+
+  <div class="grid-panel"></div>
+
+  <div class="end-panel">
+    <p>Game finished!</p>
+    <button id="backToMenuButton" class="btn btn-primary">Back to Menu</button>
+  </div>
+
+  <div class="score-container">
+    <div class="score-left">
+      <div>
+        High score (w/ chosen game settings): <span id="high-score">0</span>
+      </div> 
+      <!-- <div>
+        High score (countdown): <span id="high-score-countdown">0</span>
+      </div> -->
+    </div>
+    <div class="score-right">
+      <div id="score-div"></div>
+      <div id="countdown-div"></div>
+    </div>
+  </div>
+  
+  
+
+
+  <!-- <div class="grid-container">
+      <div class="grid-unit">1</div> 
+      <div class="grid-unit">2</div> 
+  </div> -->
+  
 
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- <script src="star-admin2-free-admin-template/template/vendors/js/vendor.bundle.base.js"></script> -->
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="star-admin2-free-admin-template/template/vendors/chart.js/Chart.min.js"></script>
-    <script src="star-admin2-free-admin-template/template/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <!-- <script src="star-admin2-free-admin-template/template/vendors/progressbar.js/progressbar.min.js"></script> -->
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="star-admin2-free-admin-template/template/vendors/chart.js/Chart.min.js"></script>
+  <script src="star-admin2-free-admin-template/template/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="star-admin2-free-admin-template/template/js/off-canvas.js"></script>
-    <script src="star-admin2-free-admin-template/template/js/hoverable-collapse.js"></script>
-    <script src="star-admin2-free-admin-template/template/js/template.js"></script>
-    <script src="star-admin2-free-admin-template/template/js/settings.js"></script>
-    <script src="star-admin2-free-admin-template/template/js/todolist.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="star-admin2-free-admin-template/template/js/dashboard.js"></script>
-    <script src="star-admin2-free-admin-template/template/js/Chart.roundedBarCharts.js"></script>
+  <script src="star-admin2-free-admin-template/template/js/off-canvas.js"></script>
+  <script src="star-admin2-free-admin-template/template/js/hoverable-collapse.js"></script>
+  <script src="star-admin2-free-admin-template/template/js/template.js"></script>
+  <script src="star-admin2-free-admin-template/template/js/settings.js"></script>
+  <script src="star-admin2-free-admin-template/template/js/todolist.js"></script>
 
-    <script src="script.js"></script>
+  <script src="star-admin2-free-admin-template/template/js/dashboard.js"></script>
+  <script src="star-admin2-free-admin-template/template/js/Chart.roundedBarCharts.js"></script> -->
+
+
+
+  <script src="script.js"></script>
 
 </body>
 </html>
