@@ -15,58 +15,56 @@
   <div class="control-panel">
     <p>Settings</p>
     
+    <div class="radio-group-container">
+      <div class="radio-group">
+        <p>Grid size</p> 
+        <div class="radio">
+          <input type="radio" id="small" name="gridSize"> 
+          <label for="small" class="radio-label">Small</label>
+        </div>
 
-    <p>Test</p> 
-    <div class="container">
-      <div class="radio">
-        <input id="radio-1" name="radio" type="radio" checked>
-        <label for="radio-1" class="radio-label">Checked</label>
+        <div class="radio">
+          <input type="radio" id="medium" name="gridSize" checked>
+          <label for="medium" class="radio-label">Medium</label>
+        </div>
+
+        <div class="radio">
+          <input type="radio" id="large" name="gridSize">
+          <label for="large" class="radio-label">Large</label>
+        </div>
       </div>
-    
-      <div class="radio">
-        <input id="radio-2" name="radio" type="radio">
-        <label  for="radio-2" class="radio-label">Unchecked</label>
+
+      <div class="radio-group">
+        <p>Speed</p> 
+        <div class="radio">
+          <input type="radio" id="1" name="speed"> 
+          <label for="1" class="radio-label">Slow</label>
+        </div>
+
+        <div class="radio">
+          <input type="radio" id="2" name="speed" checked>
+          <label for="2" class="radio-label">Moderate</label>
+        </div>
+
+        <div class="radio">
+          <input type="radio" id="3" name="speed">
+          <label for="3" class="radio-label">Fast</label>
+        </div>
       </div>
-    
-      <div class="radio">
-        <input id="radio-3" name="radio" type="radio" disabled>
-        <label for="radio-3" class="radio-label">Disabled</label>
+
+      <div class="radio-group">
+        <p>Mode</p> 
+        <div class="radio">
+          <input type="radio" id="normal" name="mode" checked>
+          <label for="normal" class="radio-label">Normal</label>
+        </div>
+
+        <div class="radio">
+          <input type="radio" id="countdown" name="mode">
+          <label for="countdown" class="radio-label">Countdown</label>
+        </div>
       </div>
     </div>
-
-
-    <p>Grid size</p> 
-    <form>
-      <input type="radio" id="small" name="gridSize"> 
-      <label for="small">Small</label>
-
-      <input type="radio" id="medium" name="gridSize" checked>
-      <label for="medium">Medium</label>
-
-      <input type="radio" id="large" name="gridSize">
-      <label for="large">Large</label>
-    </form>
-    
-    <p>Speed</p>
-    <form>
-      <input type="radio" id="1" name="speed"> 
-      <label for="1">1</label>
-
-      <input type="radio" id="2" name="speed" checked>
-      <label for="2">2</label>
-
-      <input type="radio" id="3" name="speed">
-      <label for="3">3</label>
-    </form>
-    
-    <p>Mode</p>
-    <form>
-      <input type="radio" id="normal" name="mode" checked> 
-      <label for="normal">Normal</label>
-
-      <input type="radio" id="countdown" name="mode">
-      <label for="countdown">Countdown</label>
-    </form>
     
     <button id="startButton" class="button btn btn-primary">Start</button>    
   </div>
