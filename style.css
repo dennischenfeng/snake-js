@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  
 }
 
 .panel-container {
@@ -90,18 +91,31 @@
 }
 
 
-.end-panel {
+.popup-container {
   display: flex;
-  flex: 1;
+  flex-direction: row;
+  position: absolute;
+  height: 800px;
+  width: 800px;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
+.popup-end {
+  display: flex;
+  flex-direction: column;
+  flex: initial;
   height: 200px;
   width: 300px;
-  position: absolute;
-  /* top: 100px;
-  left: 100px; */
-  z-index: 0;
-  background-color: darkorchid;
-  padding: 50px;
+  align-items: center;
+  justify-content: center;
+  /* z-index: 0; */
+  background-color: lightgray;
+  border-radius: 8px;
+  border: 2px solid mediumseagreen;
 }
+
 
 .score-container {
   display: flex;
@@ -192,7 +206,7 @@
 /* and another open source: https://codepen.io/simonbusborg/pen/cyxad */
 .button {
   /* display: flex; */
-  margin: 3em;
+  margin: 1em;
   padding: 1em 2em;
   cursor: pointer;
   transition: all 150ms ease;

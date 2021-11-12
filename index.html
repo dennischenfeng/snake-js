@@ -78,25 +78,28 @@
     <button id="startButton" class="button">Start</button>    
   </div>
 
-  <div class="grid-panel"></div>
 
-  <div class="end-panel">
-    <p>Game finished!</p>
-    <button id="backToMenuButton" class="button">Back to Menu</button>
+  <div class="grid-panel"></div>
+  
+  <div class="popup-container for-popup-end">
+    <div class="popup-end">
+      <p>Game finished!</p>
+      <button id="backToMenuButton" class="button">Back to Menu</button>
+    </div>
   </div>
 
   <div class="score-container">
     <div class="score-left">
-      <div>
-        High score: <span id="high-score">0</span>
-      </div> 
-      <!-- <div>
-        High score (countdown): <span id="high-score-countdown">0</span>
-      </div> -->
+      <div class="score-label">High score</div>
+      <div id="high-score">0</div>
+    </div>
+    <div class="score-mid">
+      <div class="score-label">Score</div>
+      <div id="score-div">N/A</div>
     </div>
     <div class="score-right">
-      <div id="score-div"></div>
-      <div id="countdown-div"></div>
+      <div class="score-label">Countdown</div>
+      <div id="countdown-div">N/A</div>
     </div>
   </div>
 

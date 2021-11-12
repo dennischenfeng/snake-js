@@ -20,7 +20,7 @@ const sleepTimes = {
 
 const controlPanel = document.querySelector(".control-panel")
 const gridPanel = document.querySelector(".grid-panel")
-const endPanel = document.querySelector(".end-panel")
+const endPanel = document.querySelector(".popup-container.for-popup-end")
 const highScoreSpan = document.getElementById("high-score")
 // const highScoreNormalSpan = document.getElementById("high-score-normal")
 // const highScoreCountdownSpan = document.getElementById("high-score-countdown")
