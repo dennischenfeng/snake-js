@@ -13,19 +13,26 @@
   background-color: whitesmoke;
   position: absolute;
   z-index: 2;
+  border-radius: 8px;
+  border: 2px solid mediumseagreen;
 }
 
-
-
-.radio-group-container {
+.radio-section-container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+}
+
+.radio-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2em;
 }
 
 .radio-group {
   display: flex;
   flex-direction: column;
-  flex: 1;
 }
 
 
@@ -34,39 +41,49 @@
 .grid-panel {
   display: flex;
   flex-direction: column;
-  height: 500px;
-  width: 500px;
-  background-color: yellow;
+  height: 800px;
+  width: 800px;
+  background-color: whitesmoke;
   position: absolute;
   z-index: 0;
+  /* border-radius: 1em; */
+  /* border: 1em solid mediumseagreen; */
+  border-radius: 8px;
+  border: 2px solid mediumseagreen;
 }
 
 .grid-row {
   display: flex;
   flex-direction: row;
-  background-color: pink;
+  background-color: whitesmoke;
   flex: 1;
+  border-radius: 8px;
 }
 
 .grid-unit-empty {
-  color: red;
-  background-color: blue;
-  margin: 1px;
+  background-color: whitesmoke;
   flex: 1;
+  border-radius: 8px;
+  margin: 2px;
+  transition: all 100ms ease;
 }
 
 .grid-unit-snake {
-  color: red;
-  background-color: red;
-  margin: 1px;
+  background-color: mediumseagreen;
   flex: 1;
+  border-radius: 8px;
+  margin: 2px;
+  transition: all 100ms ease;
 }
 
 .grid-unit-food {
-  color: red;
-  background-color: yellowgreen;
-  margin: 1px;
+  content: '';
+  background-color: gold;
   flex: 1;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 2px goldenrod;
+  margin: 2px;
+  transition: all 100ms ease;
 }
 
 
@@ -86,17 +103,20 @@
   flex-direction: row;
   height: 50px;
   width: 800px;
-  top: 800px;
+  top: 809px;
   position: absolute;
   z-index: 3;
-  color: black;
-  background-color: darkgray;
+  /* color: black; */
+  background-color: gold;
+  border-radius: 8px;
+  border: 2px solid goldenrod;
 }
 
 .score-left {
   display: flex;
   flex-direction: column;
   flex: 1;
+  padding: 
 }
 
 .score-right {

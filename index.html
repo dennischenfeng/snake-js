@@ -13,58 +13,67 @@
 
 <body>
   <div class="control-panel">
-    <p>Settings</p>
+    <h1>Settings</h1>
     
-    <div class="radio-group-container">
-      <div class="radio-group">
-        <p>Grid size</p> 
-        <div class="radio">
-          <input type="radio" id="small" name="gridSize"> 
-          <label for="small" class="radio-label">Small</label>
-        </div>
+    <div class="radio-section-container">
+      <div class="radio-section">
+        <h2>Grid size</h2>
+        <div class="radio-group">
+          <div class="radio">
+            <input type="radio" id="small" name="gridSize"> 
+            <label for="small" class="radio-label">Small</label>
+          </div>
 
-        <div class="radio">
-          <input type="radio" id="medium" name="gridSize" checked>
-          <label for="medium" class="radio-label">Medium</label>
-        </div>
+          <div class="radio">
+            <input type="radio" id="medium" name="gridSize" checked>
+            <label for="medium" class="radio-label">Medium</label>
+          </div>
 
-        <div class="radio">
-          <input type="radio" id="large" name="gridSize">
-          <label for="large" class="radio-label">Large</label>
+          <div class="radio">
+            <input type="radio" id="large" name="gridSize">
+            <label for="large" class="radio-label">Large</label>
+          </div>
         </div>
       </div>
 
-      <div class="radio-group">
-        <p>Speed</p> 
-        <div class="radio">
-          <input type="radio" id="1" name="speed"> 
-          <label for="1" class="radio-label">Slow</label>
-        </div>
+      <div class="radio-section">
+        <h2>Speed</h2> 
+        <div class="radio-group">
+          
+          <div class="radio">
+            <input type="radio" id="1" name="speed"> 
+            <label for="1" class="radio-label">Slow</label>
+          </div>
 
-        <div class="radio">
-          <input type="radio" id="2" name="speed" checked>
-          <label for="2" class="radio-label">Moderate</label>
-        </div>
+          <div class="radio">
+            <input type="radio" id="2" name="speed" checked>
+            <label for="2" class="radio-label">Moderate</label>
+          </div>
 
-        <div class="radio">
-          <input type="radio" id="3" name="speed">
-          <label for="3" class="radio-label">Fast</label>
+          <div class="radio">
+            <input type="radio" id="3" name="speed">
+            <label for="3" class="radio-label">Fast</label>
+          </div>
         </div>
       </div>
 
-      <div class="radio-group">
-        <p>Mode</p> 
-        <div class="radio">
-          <input type="radio" id="normal" name="mode" checked>
-          <label for="normal" class="radio-label">Normal</label>
-        </div>
+      <div class="radio-section">
+        <h2>Mode</h2> 
+        <div class="radio-group">
+          <div class="radio">
+            <input type="radio" id="normal" name="mode" checked>
+            <label for="normal" class="radio-label">Normal</label>
+          </div>
 
-        <div class="radio">
-          <input type="radio" id="countdown" name="mode">
-          <label for="countdown" class="radio-label">Countdown</label>
+          <div class="radio">
+            <input type="radio" id="countdown" name="mode">
+            <label for="countdown" class="radio-label">Countdown</label>
+          </div>
         </div>
       </div>
+
     </div>
+      
     
     <button id="startButton" class="button">Start</button>    
   </div>
@@ -73,13 +82,13 @@
 
   <div class="end-panel">
     <p>Game finished!</p>
-    <button id="backToMenuButton" class="btn btn-primary">Back to Menu</button>
+    <button id="backToMenuButton" class="button">Back to Menu</button>
   </div>
 
   <div class="score-container">
     <div class="score-left">
       <div>
-        High score (w/ chosen game settings): <span id="high-score">0</span>
+        High score: <span id="high-score">0</span>
       </div> 
       <!-- <div>
         High score (countdown): <span id="high-score-countdown">0</span>
