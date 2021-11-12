@@ -280,7 +280,7 @@ Game.prototype.play = async function() {
     while (i < 1000) {
         await sleep(this.sleep_time);
         this.step(this.nextKeyDirection);
-        scoreDiv.textContent = `Score: ${this.score}`;
+        scoreDiv.textContent = `${this.score}`;
         if (this.done) {
             window.removeEventListener("keydown", this.keyDown);
             break;
@@ -293,8 +293,8 @@ Game.prototype.play = async function() {
 
 Game.prototype.reset_dom = function () {
     gridPanel.textContent = "";
-    scoreDiv.textContent = "";
-    countdownDiv.textContent = "";
+    scoreDiv.textContent = "N/A";
+    countdownDiv.textContent = "N/A";
 }
 
 Game.prototype.keyDown = async function(e) {
