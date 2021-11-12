@@ -21,6 +21,7 @@ const sleepTimes = {
 const controlPanel = document.querySelector(".control-panel")
 const gridPanel = document.querySelector(".grid-panel")
 const endPanel = document.querySelector(".popup-container.for-popup-end")
+const startPanel = document.querySelector(".popup-container.for-popup-start")
 const highScoreSpan = document.getElementById("high-score")
 // const highScoreNormalSpan = document.getElementById("high-score-normal")
 // const highScoreCountdownSpan = document.getElementById("high-score-countdown")
@@ -57,7 +58,33 @@ async function onStartButtonClick(e) {
     const countdown = (mode === "countdown" ? true : false);
 
     game = new Game(gridSize, speed, countdown);
-    bringToFront("grid-panel");
+    
+    bringToFront("start-panel");
+    window.addEventListener("keydown", onContinue);
+
+
+    
+    
+    // const score = await game.play();
+    
+    // key = `${gridSizeKey},${speed},${mode}`;
+    // highScores[key] = Math.max(score, highScores[key]);
+
+    // highScoreSpan.textContent = highScores[key];
+
+    // bringToFront("end-panel");
+}
+
+async function onContinue(e) {
+    const gridSizeKey = document.querySelector("input[name='gridSize']:checked").id;
+    const gridSize = gridSizes[gridSizeKey];
+    const speed = parseInt(document.querySelector("input[name='speed']:checked").id);
+    const mode = document.querySelector("input[name='mode']:checked").id
+    const countdown = (mode === "countdown" ? true : false);
+    
+    window.removeEventListener("keydown", onContinue);
+
+    bringToFront("grid-panel")
     const score = await game.play();
     
     key = `${gridSizeKey},${speed},${mode}`;
@@ -88,14 +115,22 @@ function bringToFront (panelName) {
         controlPanel.style.zIndex = 2;
         gridPanel.style.zIndex = 0;
         endPanel.style.zIndex = 0;
+        startPanel.style.zIndex = -1;
     } else if (panelName == "grid-panel") {
         controlPanel.style.zIndex = 0;
         gridPanel.style.zIndex = 2;
         endPanel.style.zIndex = 0;
+        startPanel.style.zIndex = -1;
     } else if (panelName == "end-panel") {
         controlPanel.style.zIndex = 0;
         gridPanel.style.zIndex = 1;
         endPanel.style.zIndex = 2;
+        startPanel.style.zIndex = -1;
+    } else if (panelName == "start-panel") {
+        controlPanel.style.zIndex = 0;
+        gridPanel.style.zIndex = 1;
+        endPanel.style.zIndex = 2;
+        startPanel.style.zIndex = 3;
     } else {
         throw "panelName is not valid!"
     }
